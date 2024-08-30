@@ -12,8 +12,16 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const nameRegex = /^[A-Za-z\s]+$/;
+
     if (name.trim().length < 3) {
       setErrorMessage("El nombre debe tener al menos 3 caracteres y no debe comenzar con espacios en blanco.");
+      setShowCard(false);
+      setShowMessage(false);
+      return;
+    }
+    if (!nameRegex.test(name)) {
+      setErrorMessage("El nombre solo debe contener letras.");
       setShowCard(false);
       setShowMessage(false);
       return;
@@ -33,15 +41,17 @@ const Form = () => {
   return (
     <div>
         <form onSubmit={handleSubmit}>
-        <label>Nombre:</label>
+        <label htmlFor="name">Nombre:</label>
         <input
+          id="name" // Agregar id
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <br />
-        <label>Curso:</label>
+        <label htmlFor="course">Curso:</label>
         <input
+          id="course" // Agregar id
           type="text"
           value={course}
           onChange={(e) => setCourse(e.target.value)}
@@ -56,5 +66,6 @@ const Form = () => {
     </div>
   )
 }
+
 
 export default Form
